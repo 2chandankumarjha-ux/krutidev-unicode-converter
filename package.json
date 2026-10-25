@@ -1,0 +1,21 @@
+{
+  "name": "kruti-unicode-converter",
+  "version": "1.0.0",
+  "description": "A modern CLI and Node.js library to convert Kruti Dev to Unicode and vice versa.",
+  "main": "converter.js",
+  "bin": {
+    "kruti-convert": "index.js"
+  },
+  "scripts": {
+    "start": "node example.js"
+  },
+  "keywords": [
+    "kruti-dev",
+    "unicode",
+    "hindi",
+    "converter",
+    "cli"
+  ],
+  "author": "Chandan Kumar Jha",
+  "license": "MIT"
+}
