@@ -1,120 +1,99 @@
-!DOCTYPE html
-html lang=en
-head
-    meta charset=UTF-8
-    meta name=viewport content=width=device-width, initial-scale=1.0
-    titleKruti Dev ↔ Unicode Convertertitle
-    style
-         { box-sizing border-box; font-family 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color #f4f7f6; margin 0; padding 20px; display flex; flex-direction column; align-items center; }
-        .container { background white; padding 30px; border-radius 12px; box-shadow 0 10px 30px rgba(0,0,0,0.1); width 100%; max-width 1000px; margin-top 30px; }
-        h1 { text-align center; color #333; margin-bottom 20px; }
-        .editor-container { display flex; gap 20px; }
-        .box { flex 1; display flex; flex-direction column; }
-        label { font-weight bold; margin-bottom 8px; color #555; }
-        textarea { width 100%; height 300px; padding 15px; border 2px solid #ddd; border-radius 8px; font-size 18px; resize vertical; outline none; transition border-color 0.3s; }
-        textareafocus { border-color #4CAF50; }
-        .buttons { display flex; gap 10px; margin-top 15px; justify-content center; }
-        button { padding 12px 20px; border none; border-radius 8px; font-size 16px; font-weight bold; cursor pointer; transition 0.3s; color white; }
-        .btn-k2u { background-color #2196F3; width 100%; }
-        .btn-k2uhover { background-color #1976D2; }
-        .btn-u2k { background-color #FF9800; width 100%; }
-        .btn-u2khover { background-color #F57C00; }
-        .btn-copy { background-color #4CAF50; margin-top 15px; display none; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kruti Dev ↔ Unicode Converter</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 1000px; margin-top: 30px; }
+        h1 { text-align: center; color: #333; margin-bottom: 20px; }
+        .editor-container { display: flex; gap: 20px; }
+        .box { flex: 1; display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 8px; color: #555; }
+        textarea { width: 100%; height: 300px; padding: 15px; border: 2px solid #ddd; border-radius: 8px; font-size: 18px; resize: vertical; outline: none; transition: border-color 0.3s; }
+        textarea:focus { border-color: #4CAF50; }
+        .buttons { display: flex; gap: 10px; margin-top: 15px; justify-content: center; }
+        button { padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; }
+        .btn-k2u { background-color: #2196F3; width: 100%; }
+        .btn-k2u:hover { background-color: #1976D2; }
+        .btn-u2k { background-color: #FF9800; width: 100%; }
+        .btn-u2k:hover { background-color: #F57C00; }
+        .btn-copy { background-color: #4CAF50; margin-top: 15px; display: none; }
         
-        @media (max-width 768px) {
-            .editor-container { flex-direction column; }
-            textarea { height 200px; }
+        @media (max-width: 768px) {
+            .editor-container { flex-direction: column; }
+            textarea { height: 200px; }
         }
-    style
-head
-body
+    </style>
+</head>
+<body>
 
-    div class=container
-        h1🔄 Kruti Dev ↔ Unicode Converterh1
+    <div class="container">
+        <h1>🔄 Kruti Dev ↔ Unicode Converter</h1>
         
-        div class=editor-container
-            !-- Left Box Input --
-            div class=box
-                labelInput Textlabel
-                textarea id=inputText placeholder=Yahan apna Kruti Dev ya Unicode text likhein...textarea
-            div
+        <div class="editor-container">
+            <div class="box">
+                <label>Input Text</label>
+                <textarea id="inputText" placeholder="Yahan apna Kruti Dev ya Unicode text likhein..."></textarea>
+            </div>
 
-            !-- Right Box Output --
-            div class=box
-                labelOutput Textlabel
-                textarea id=outputText placeholder=Converted text yahan aayega... readonlytextarea
-            div
-        div
+            <div class="box">
+                <label>Output Text</label>
+                <textarea id="outputText" placeholder="Converted text yahan aayega..." readonly></textarea>
+            </div>
+        </div>
 
-        div class=buttons
-            button class=btn-k2u onclick=convertText('k2u')Kruti Dev ➡ Unicodebutton
-            button class=btn-u2k onclick=convertText('u2k')Unicode ➡ Kruti Devbutton
-        div
+        <div class="buttons">
+            <button class="btn-k2u" onclick="convertText('k2u')">Kruti Dev ➡ Unicode</button>
+            <button class="btn-u2k" onclick="convertText('u2k')">Unicode ➡ Kruti Dev</button>
+        </div>
         
-        button class=btn-copy id=copyBtn onclick=copyText()📋 Copy Outputbutton
-    div
+        <button class="btn-copy" id="copyBtn" onclick="copyText()">📋 Copy Output</button>
+    </div>
 
-    script
-         === YAHAN AAPKA CONVERTER CODE HAI ===
-         (Same logic, adapted for the browser)
+    <script src="converter.js"></script>
 
-        function krutiToUnicode(text) {
-             (Paste your krutiToUnicode logic here)
-             Note Since this is a demo, I'm putting a simplified version. 
-             Copy the full logic from your converter.js file.
-            return Converted  + text; 
-        }
-        
-         Wait... instead of pasting the huge arrays again, let's load the converter logic directly from your file!
-    script
-    
-    !-- THIS LOADS YOUR CONVERTER.JS FILE DIRECTLY --
-    script src=converter.jsscript
-
-    script
-         Now we can use the functions from converter.js. 
-         But since converter.js uses Node.js `module.exports`, we need a small trick for the browser.
-
+    <script>
         function convertText(direction) {
             const input = document.getElementById('inputText').value;
             const outputBox = document.getElementById('outputText');
             const copyBtn = document.getElementById('copyBtn');
             
             if (!input.trim()) {
-                alert(Pehle kuch text toh likhiye!);
+                alert("Pehle kuch text toh likhiye!");
                 return;
             }
 
-            let result = ;
+            let result = "";
 
-             Note These functions are globally available because we will tweak converter.js slightly
             if (direction === 'k2u') {
                 if (typeof krutiToUnicode === 'function') {
                     result = krutiToUnicode(input);
                 } else {
-                    alert(Converter logic not loaded properly. Check converter.js);
+                    alert("Converter logic not loaded properly. Check converter.js");
                     return;
                 }
             } else {
                 if (typeof unicodeToKruti === 'function') {
                     result = unicodeToKruti(input);
                 } else {
-                    alert(Converter logic not loaded properly. Check converter.js);
+                    alert("Converter logic not loaded properly. Check converter.js");
                     return;
                 }
             }
 
             outputBox.value = result;
-            copyBtn.style.display = block;  Show copy button
+            copyBtn.style.display = "block";
         }
 
         function copyText() {
             const outputBox = document.getElementById('outputText');
             outputBox.select();
-            document.execCommand(copy);
-            alert(Copied to clipboard!);
+            document.execCommand("copy");
+            alert("Copied to clipboard!");
         }
-    script
-body
-html
+    </script>
+</body>
+</html>
