@@ -219,7 +219,9 @@ function unicodeToKruti(text) {
     return modified_substring;
 }
 
-module.exports = {
-    krutiToUnicode,
-    unicodeToKruti
-};
+// -------------------------------------------------------------------------
+// THE MAGIC LINE: This makes it work in BOTH Node.js (CLI) and Browsers!
+// -------------------------------------------------------------------------
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { krutiToUnicode, unicodeToKruti };
+}
