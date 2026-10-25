@@ -3,32 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kruti Dev ↔ Unicode Converter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Unicode to Krutidev Converter</title>
+    <!-- Google Fonts for Beautiful Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary: #4F46E5;
-            --primary-hover: #4338CA;
-            --secondary: #F59E0B;
-            --secondary-hover: #D97706;
-            --success: #10B981;
-            --success-hover: #059669;
-            --bg-color: #F3F4F6;
-            --surface: #FFFFFF;
-            --text-main: #1F2937;
-            --text-muted: #6B7280;
-            --border: #E5E7EB;
+            --primary: #5b4df6;
+            --primary-light: #f0efff;
+            --bg-color: #f8f9fc;
+            --text-main: #1a1c29;
+            --text-muted: #888b94;
+            --border-color: #e5e7eb;
+            --surface: #ffffff;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -36,292 +40,336 @@
             color: var(--text-main);
         }
 
-        .main-wrapper {
-            width: 100%;
-            max-width: 1100px;
-            padding: 40px 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
+        /* --- Header Section --- */
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--surface);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            margin-bottom: 20px;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 10px;
-            letter-spacing: -0.5px;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+
+        .header h1 span {
+            color: var(--primary);
         }
 
         .header p {
             color: var(--text-muted);
             font-size: 1.1rem;
+            font-weight: 500;
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            padding: 35px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-        }
-
-        .editor-container {
+        /* --- Main Container --- */
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
             display: flex;
-            gap: 25px;
+            gap: 24px;
+            margin-bottom: 50px;
         }
 
-        .box {
+        /* --- Editor Box (Cards) --- */
+        .editor-box {
             flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
         }
 
-        label {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-main);
-            font-size: 0.95rem;
+        .editor-box:focus-within {
+            border-color: rgba(91, 77, 246, 0.4);
+            box-shadow: 0 10px 30px rgba(91, 77, 246, 0.08);
+        }
+
+        /* --- Toolbar (Title & Icons) --- */
+        .toolbar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .toolbar-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-main);
+        }
+
+        .toolbar-icons {
+            display: flex;
             gap: 8px;
         }
 
-        textarea {
-            width: 100%;
-            height: 250px;
-            padding: 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: 1.1rem;
+        .icon-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--text-main);
-            background-color: var(--surface);
-            resize: vertical;
-            outline: none;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-            line-height: 1.6;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
-        textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        .icon-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+
+        /* --- Textarea --- */
+        textarea {
+            width: 100%;
+            height: 400px;
+            padding: 24px;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            background: transparent;
         }
 
         textarea::placeholder {
-            color: #9CA3AF;
-        }
-
-        /* Custom Scrollbar */
-        textarea::-webkit-scrollbar { width: 8px; }
-        textarea::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
-        textarea::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
-        textarea::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
-
-        .buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        button {
-            flex: 1;
-            padding: 16px 20px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .btn-k2u {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .btn-k2u:hover {
-            box-shadow: 0 8px 15px rgba(118, 75, 162, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .btn-u2k {
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            color: #fff;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        }
-        .btn-u2k:hover {
-            box-shadow: 0 8px 15px rgba(253, 160, 133, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .action-row {
-            display: flex;
-            justify-content: center;
-            margin-top: 25px;
-        }
-
-        .btn-copy {
-            background: var(--success);
-            padding: 14px 40px;
-            border-radius: 50px;
-            display: none;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
-        }
-        .btn-copy:hover {
-            background: var(--success-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
-        }
-
-        /* Footer CSS */
-        .footer {
-            width: 100%;
-            text-align: center;
-            padding: 25px 20px;
-            margin-top: auto;
-            color: var(--text-muted);
-            font-size: 0.95rem;
+            color: #b3b5bd;
             font-weight: 500;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            background: rgba(255,255,255,0.5);
         }
 
-        .footer span.heart {
-            color: #ef4444;
-            animation: beat 1s infinite alternate;
-            display: inline-block;
+        /* --- Bottom Bar (Counters) --- */
+        .bottom-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 24px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            background: #fafafa;
         }
 
-        @keyframes beat {
-            to { transform: scale(1.2); }
+        /* --- Custom Scrollbar --- */
+        textarea::-webkit-scrollbar { width: 6px; }
+        textarea::-webkit-scrollbar-track { background: transparent; }
+        textarea::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+        textarea::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+        /* --- Toast Message (Copy Notification) --- */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a1c29;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .editor-container {
-                flex-direction: column;
-            }
-            textarea {
-                height: 180px;
-            }
-            .buttons {
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 850px) {
+            .main-container {
                 flex-direction: column;
             }
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
-            .container {
-                padding: 20px;
+            textarea {
+                height: 250px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <div class="header">
-            <h1>🔄 Kruti Dev ↔ Unicode</h1>
-            <p>Convert your Hindi text seamlessly between Kruti Dev and Unicode (Mangal).</p>
+    <!-- Header -->
+    <div class="header">
+        <div class="badge">
+            <i class="fa-solid fa-bolt"></i> Instant Conversion
         </div>
-
-        <div class="container">
-            <div class="editor-container">
-                <!-- Left Box: Input -->
-                <div class="box">
-                    <label>📝 Input Text</label>
-                    <textarea id="inputText" placeholder="Yahan apna Kruti Dev ya Unicode text likhein ya paste karein..."></textarea>
-                </div>
-
-                <!-- Right Box: Output -->
-                <div class="box">
-                    <label>✨ Output Text</label>
-                    <textarea id="outputText" placeholder="Converted text yahan aayega..." readonly></textarea>
-                </div>
-            </div>
-
-            <div class="buttons">
-                <button class="btn-k2u" onclick="convertText('k2u')">Kruti Dev ➡ Unicode</button>
-                <button class="btn-u2k" onclick="convertText('u2k')">Unicode ➡ Kruti Dev</button>
-            </div>
-            
-            <div class="action-row">
-                <button class="btn-copy" id="copyBtn" onclick="copyText()">📋 Copy Output</button>
-            </div>
-        </div>
+        <h1>Unicode to Krutidev <span>Converter</span></h1>
+        <p>Free Online Tool for Unicode (Mangal) to Krutidev Font Conversion.</p>
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        Made with <span class="heart">❤️</span> by Chandan Kumar Jha
+    <!-- Main Editors -->
+    <div class="main-container">
+        
+        <!-- Input Box -->
+        <div class="editor-box">
+            <div class="toolbar">
+                <div class="toolbar-title">Unicode Input (Mangal)</div>
+                <div class="toolbar-icons">
+                    <button class="icon-btn" onclick="pasteText()" title="Paste">
+                        <i class="fa-regular fa-clipboard"></i>
+                    </button>
+                    <button class="icon-btn" onclick="clearText('input')" title="Clear">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <textarea id="inputText" placeholder="यहाँ यूनिकोड (मंगल) टेक्स्ट पेस्ट करें या टाइप करें..." spellcheck="false"></textarea>
+            <div class="bottom-bar">
+                <span id="inputCount">0 characters | 0 words</span>
+            </div>
+        </div>
+
+        <!-- Output Box -->
+        <div class="editor-box">
+            <div class="toolbar">
+                <div class="toolbar-title">Krutidev Output</div>
+                <div class="toolbar-icons">
+                    <button class="icon-btn" onclick="copyText()" title="Copy to Clipboard">
+                        <i class="fa-regular fa-copy"></i>
+                    </button>
+                    <button class="icon-btn" onclick="clearText('output')" title="Clear">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <textarea id="outputText" placeholder="परिवर्तित कृतिदेव टेक्स्ट यहाँ दिखाई देगा..." readonly spellcheck="false"></textarea>
+            <div class="bottom-bar">
+                <span id="outputCount">0 characters | 0 words</span>
+            </div>
+        </div>
+
     </div>
 
-    <!-- Load the logic -->
+    <!-- Toast Notification -->
+    <div id="toast">Copied to clipboard!</div>
+
+    <!-- Load Converter Logic -->
     <script src="converter.js"></script>
+
     <script>
-        function convertText(direction) {
-            const input = document.getElementById('inputText').value;
-            const outputBox = document.getElementById('outputText');
-            const copyBtn = document.getElementById('copyBtn');
+        const inputText = document.getElementById('inputText');
+        const outputText = document.getElementById('outputText');
+        const inputCount = document.getElementById('inputCount');
+        const outputCount = document.getElementById('outputCount');
+        
+        let typingTimer;
+        const doneTypingInterval = 300; // 300ms delay to auto-convert
+
+        // --- Auto Convert on Typing ---
+        inputText.addEventListener('input', () => {
+            clearTimeout(typingTimer);
+            updateCounters();
             
-            if (!input.trim()) {
-                // Simple shake effect if empty
-                document.getElementById('inputText').style.borderColor = "#ef4444";
-                setTimeout(() => document.getElementById('inputText').style.borderColor = "", 1000);
+            // Wait for user to stop typing for 300ms before converting
+            typingTimer = setTimeout(performConversion, doneTypingInterval);
+        });
+
+        function performConversion() {
+            const text = inputText.value;
+            if (!text.trim()) {
+                outputText.value = '';
+                updateCounters();
                 return;
             }
 
-            let result = "";
-
-            if (direction === 'k2u') {
-                if (typeof krutiToUnicode === 'function') {
-                    result = krutiToUnicode(input);
-                } else {
-                    alert("Converter logic not loaded. Check converter.js");
-                    return;
-                }
-            } else {
-                if (typeof unicodeToKruti === 'function') {
-                    result = unicodeToKruti(input);
-                } else {
-                    alert("Converter logic not loaded. Check converter.js");
-                    return;
-                }
+            // Using the function from converter.js
+            if (typeof unicodeToKruti === 'function') {
+                outputText.value = unicodeToKruti(text);
+                updateCounters();
             }
-
-            outputBox.value = result;
-            copyBtn.style.display = "inline-block"; // Show copy button
         }
 
+        // --- Update Character & Word Counters ---
+        function updateCounters() {
+            const inText = inputText.value;
+            const outText = outputText.value;
+
+            inputCount.textContent = `${inText.length} characters | ${countWords(inText)} words`;
+            outputCount.textContent = `${outText.length} characters | ${countWords(outText)} words`;
+        }
+
+        function countWords(str) {
+            return str.trim() === '' ? 0 : str.trim().split(/\s+/).length;
+        }
+
+        // --- Copy to Clipboard ---
         function copyText() {
-            const outputBox = document.getElementById('outputText');
-            outputBox.select();
+            if (!outputText.value) return;
+            
+            outputText.select();
             document.execCommand("copy");
+            window.getSelection().removeAllRanges(); // Deselect
             
-            const btn = document.getElementById('copyBtn');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = "✅ Copied!";
-            btn.style.background = "#059669";
-            
+            showToast();
+        }
+
+        // --- Paste from Clipboard ---
+        async function pasteText() {
+            try {
+                const text = await navigator.clipboard.readText();
+                inputText.value = text;
+                performConversion();
+                updateCounters();
+            } catch (err) {
+                alert("Please allow clipboard access or use Ctrl+V to paste.");
+            }
+        }
+
+        // --- Clear Text ---
+        function clearText(type) {
+            if (type === 'input') {
+                inputText.value = '';
+            } else {
+                outputText.value = '';
+            }
+            updateCounters();
+            inputText.focus();
+        }
+
+        // --- Toast Notification ---
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.classList.add("show");
             setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = "";
-            }, 2000);
+                toast.classList.remove("show");
+            }, 2500);
         }
     </script>
 </body>
