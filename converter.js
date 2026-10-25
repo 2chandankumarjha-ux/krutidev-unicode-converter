@@ -225,3 +225,4 @@ function unicodeToKruti(text) {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { krutiToUnicode, unicodeToKruti };
 }
+if (typeof module !== 'undefined' && module.exports) { module.exports = { krutiToUnicode, unicodeToKruti }; }
